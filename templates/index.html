@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#6366f1">
+    <title>AI Chat Companion</title>
+    <link rel="stylesheet" href="/static/css/mobile-first.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Persona Setup Screen -->
+        <div id="setupScreen" class="screen active">
+            <div class="setup-container">
+                <div class="setup-header">
+                    <h1>✨ Create Your AI Companion</h1>
+                    <p>Personalize your AI friend</p>
+                </div>
+
+                <form id="personaForm" class="persona-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="e.g., Riya, Alex, Luna" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role">Relationship Type</label>
+                        <select id="role" required>
+                            <option value="">Choose a role...</option>
+                            <option value="girlfriend">Girlfriend 💕</option>
+                            <option value="boyfriend">Boyfriend 💙</option>
+                            <option value="friend">Friend 🤝</option>
+                            <option value="companion">Companion 🌟</option>
+                            <option value="mentor">Mentor 📚</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Personality Traits (Select multiple)</label>
+                        <div class="checkbox-group" id="personalityGroup">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="personality" value="caring"> Caring 🤗
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="personality" value="romantic"> Romantic ❤️
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="personality" value="playful"> Playful 🎉
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="personality" value="witty"> Witty 😄
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="personality" value="intelligent"> Intelligent 🧠
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="personality" value="adventurous"> Adventurous 🌍
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="personality" value="calm"> Calm 😌
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="personality" value="energetic"> Energetic ⚡
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tone">Communication Tone</label>
+                        <select id="tone" required>
+                            <option value="">Choose a tone...</option>
+                            <option value="sweet">Sweet & Gentle 🌸</option>
+                            <option value="playful">Playful & Fun 🎉</option>
+                            <option value="caring">Caring & Supportive 🤗</option>
+                            <option value="romantic">Romantic & Passionate ❤️</option>
+                            <option value="casual">Casual & Friendly 😊</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Likes (Select multiple - Optional)</label>
+                        <div class="checkbox-group" id="likesGroup">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="likes" value="music"> Music 🎵
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="likes" value="movies"> Movies 🎬
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="likes" value="late night talks"> Late Night Talks 🌙
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="likes" value="coffee"> Coffee ☕
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="likes" value="books"> Books 📚
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="likes" value="travel"> Travel ✈️
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="likes" value="cooking"> Cooking 🍳
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="likes" value="gaming"> Gaming 🎮
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Dislikes (Select multiple - Optional)</label>
+                        <div class="checkbox-group" id="dislikesGroup">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dislikes" value="rude language"> Rude Language 🚫
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dislikes" value="dishonesty"> Dishonesty 🤥
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dislikes" value="negativity"> Negativity 😔
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dislikes" value="being ignored"> Being Ignored 👻
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dislikes" value="loud noises"> Loud Noises 🔊
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dislikes" value="arguments"> Arguments 💢
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        Create Companion ✨
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Chat Screen -->
+        <div id="chatScreen" class="screen">
+            <div class="chat-wrapper">
+                <!-- Chat Header -->
+                <div class="chat-header">
+                    <div class="persona-info">
+                        <div class="avatar" id="personaAvatar">AI</div>
+                        <div class="persona-details">
+                            <h2 id="personaName">AI Companion</h2>
+                            <span class="status">● Online</span>
+                        </div>
+                    </div>
+                    <button class="btn-menu" id="resetBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="1" fill="currentColor" />
+                            <circle cx="12" cy="5" r="1" fill="currentColor" />
+                            <circle cx="12" cy="19" r="1" fill="currentColor" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Messages Container -->
+                <div class="messages-container" id="messagesContainer">
+                    <div class="welcome-message">
+                        <p>👋 Start chatting with your AI companion!</p>
+                    </div>
+                </div>
+
+                <!-- Typing Indicator -->
+                <div class="typing-indicator" id="typingIndicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <!-- Chat Input -->
+                <form class="chat-input" id="chatForm">
+                    <input type="text" id="messageInput" placeholder="Type your message..." autocomplete="off" required>
+                    <button type="submit" class="btn-send">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Confirmation Modal -->
+    <div id="resetModal" class="modal">
+        <div class="modal-content">
+            <h3>Reset Persona?</h3>
+            <p>Are you sure you want to reset your persona? This will clear all chat history.</p>
+            <div class="modal-buttons">
+                <button class="btn-cancel" id="cancelReset">Cancel</button>
+                <button class="btn-confirm" id="confirmReset">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+
+</html>

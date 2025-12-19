@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+chat.db
+venv/
+env/
+.vscode/
+.idea/
