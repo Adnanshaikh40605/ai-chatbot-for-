@@ -6,13 +6,17 @@ class GeminiService:
     """Service for interacting with Gemini AI"""
     
     def __init__(self):
-        api_key = os.getenv("GEMINI_API_KEY")
-        if not api_key or api_key == "your_api_key_here":
-            raise ValueError("Please set GEMINI_API_KEY in .env file")
-        
-        # Set API key as environment variable for the SDK
-        os.environ["GOOGLE_API_KEY"] = api_key
-        self.client = genai.Client()
+        self.api_key = os.getenv("GEMINI_API_KEY")
+        self._client = None
+
+    @property
+    def client(self):
+        if self._client is None:
+            if not self.api_key:
+                raise ValueError("GEMINI_API_KEY environment variable is not set. Please provide it in your environment configuration.")
+            os.environ["GOOGLE_API_KEY"] = self.api_key
+            self._client = genai.Client()
+        return self._client
     
     def build_prompt(self, persona, conversation_history, memories):
         """Build a comprehensive prompt for the AI"""

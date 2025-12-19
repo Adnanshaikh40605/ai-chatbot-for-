@@ -1,122 +1,188 @@
-# 🤖 Persona-Based AI Chat Companion
+# AI Chatbot - Django REST Framework
 
-A modern web application that lets you create personalized AI companions with unique personalities, powered by Google's Gemini AI.
+A modern, persona-based AI chatbot built with Django REST Framework and Google Gemini AI, featuring a beautiful mobile-first responsive design.
+
+![AI Chatbot](https://img.shields.io/badge/Django-4.2.7-green)
+![Python](https://img.shields.io/badge/Python-3.13-blue)
+![Gemini](https://img.shields.io/badge/Gemini-2.5--flash--lite-orange)
 
 ## ✨ Features
 
-- **Personalized AI Personas**: Create AI companions with custom names, roles, personalities, and communication tones
-- **Context-Aware Conversations**: AI remembers conversation history and responds based on your persona's traits
-- **Beautiful UI**: Premium dark theme with smooth animations and glassmorphism effects
-- **Real-time Chat**: Interactive messaging with typing indicators
-- **Persistent Memory**: Chat history saved and retrieved across sessions
+- 🤖 **Personalized AI Companions** - Create custom AI personas with unique personalities
+- 📱 **Mobile-First Design** - Beautiful, responsive UI optimized for all devices
+- ✅ **Multi-Select Interface** - Quick persona creation with checkbox options
+- 💬 **Real-time Chat** - Smooth chat experience with typing indicators
+- 🎨 **Modern UI** - Gradient designs, smooth animations, and glassmorphism
+- 🔄 **REST API** - Full Django REST Framework backend
+- 💾 **Chat History** - Persistent conversation storage
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- Python 3.8+
-- Google Gemini API Key ([Get it here](https://makersuite.google.com/app/apikey))
+- Python 3.13+
+- Google Gemini API Key ([Get one here](https://ai.google.dev/))
 
 ### Installation
 
-1. **Install Dependencies** (no virtual environment as requested):
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. **Configure API Key**:
-   - Open the `.env` file
-   - Replace `your_api_key_here` with your actual Gemini API key:
-     ```
-     GEMINI_API_KEY=your_actual_api_key_here
-     ```
-
-3. **Run the Application**:
-   ```bash
-   python main.py
-   ```
-
-4. **Open in Browser**:
-   - Navigate to `http://localhost:8000`
-   - Create your AI companion and start chatting!
-
-## 📁 Project Structure
-
-```
-pop bna/
-├── main.py              # FastAPI server and API endpoints
-├── ai_service.py        # Gemini AI integration and prompt building
-├── models.py            # Database models (User, Persona, Message, Memory)
-├── database.py          # Database configuration
-├── schemas.py           # Pydantic validation schemas
-├── requirements.txt     # Python dependencies
-├── .env                 # Environment variables (API keys)
-├── static/
-│   ├── index.html       # Main HTML interface
-│   ├── style.css        # Styling and animations
-│   └── script.js        # Frontend logic and API calls
-└── chat.db              # SQLite database (auto-created)
+1. **Clone the repository**
+```bash
+git clone https://github.com/Adnanshaikh40605/ai-chatbot-for-.git
+cd ai-chatbot-for-
 ```
 
-## 🎨 Persona Customization
+2. **Create virtual environment**
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-When creating your AI companion, you can customize:
+3. **Install dependencies**
+```bash
+pip install -r requirements.txt
+```
 
-- **Name**: Give your companion a unique name
-- **Role**: Choose from girlfriend, boyfriend, friend, companion, or mentor
-- **Personality**: Define personality traits (e.g., "caring, romantic, playful")
-- **Tone**: Select communication style (sweet, playful, caring, romantic, casual, professional)
-- **Likes/Dislikes**: Add preferences to personalize responses further
+4. **Set up environment variables**
 
-## 🔧 API Endpoints
+Create a `.env` file in the root directory:
+```
+GEMINI_API_KEY=your_gemini_api_key_here
+```
 
-- `POST /api/user` - Create a new user
-- `POST /api/persona` - Create or update persona
-- `GET /api/persona/{user_id}` - Get persona details
-- `POST /api/chat` - Send message and receive AI response
-- `GET /api/chat/history/{user_id}` - Retrieve chat history
+5. **Run migrations**
+```bash
+python manage.py migrate
+```
 
-## 💡 How It Works
+6. **Start the server**
+```bash
+python manage.py runserver
+```
 
-1. **Persona Creation**: Your chosen personality traits are stored in the database
-2. **Prompt Engineering**: Each message creates a custom prompt with:
-   - Persona details (name, role, personality, tone)
-   - Conversation history (last 10 messages)
-   - User preferences and memories
-3. **AI Response**: Gemini AI generates responses that match your persona's personality
-4. **Memory**: All messages are saved for context in future conversations
+7. **Open your browser**
+```
+http://127.0.0.1:8000/
+```
 
-## 🎯 Technology Stack
+## 📖 Usage
 
-- **Backend**: Python, FastAPI, SQLAlchemy
-- **Frontend**: Vanilla HTML, CSS, JavaScript
-- **AI**: Google Gemini 1.5 Flash
-- **Database**: SQLite
+### Creating Your AI Companion
 
-## 🔒 Security
+1. Fill in the persona form:
+   - **Name**: Give your AI a name
+   - **Relationship Type**: Choose from girlfriend, boyfriend, friend, companion, or mentor
+   - **Personality Traits**: Select multiple traits (caring, romantic, playful, etc.)
+   - **Communication Tone**: Choose how your AI communicates
+   - **Likes/Dislikes**: Optional preferences
 
-- API keys stored in `.env` file (never exposed to frontend)
-- `.gitignore` configured to exclude sensitive files
-- Database file excluded from version control
+2. Click "Create Companion ✨"
 
-## 📝 Notes
+3. Start chatting!
 
-- No virtual environment used (as requested)
-- Chat history persists in local SQLite database
-- Frontend uses localStorage for session management
+### API Endpoints
 
-## 🚧 Future Enhancements
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/users/` | POST | Create new user |
+| `/api/personas/` | POST | Create/update persona |
+| `/api/personas/{user_id}/` | GET | Get persona details |
+| `/api/chat/` | POST | Send message and get AI response |
+| `/api/messages/{user_id}/` | GET | Get chat history |
 
-- Voice chat capability
-- Multiple personas per user
-- Emotion detection
-- Advanced memory system
-- Mobile app version
+## 🛠️ Tech Stack
+
+### Backend
+- **Django 4.2.7** - Web framework
+- **Django REST Framework** - API development
+- **Google Gemini AI** - AI model (gemini-2.5-flash-lite)
+- **SQLite** - Database (development)
+
+### Frontend
+- **HTML5** - Structure
+- **CSS3** - Styling (Mobile-first, responsive)
+- **Vanilla JavaScript** - Interactivity
+- **Inter Font** - Typography
+
+## 📱 Mobile Features
+
+- ✅ Touch-friendly UI (44px+ tap targets)
+- ✅ Responsive breakpoints (mobile, tablet, desktop)
+- ✅ Smooth animations and transitions
+- ✅ Keyboard-aware input positioning
+- ✅ Pull-to-refresh ready
+- ✅ PWA-ready architecture
+
+## 🎨 Design Highlights
+
+- **Color Palette**: Indigo & Purple gradients
+- **Animations**: Slide-in messages, bounce typing indicator
+- **Components**: Custom modal popups, checkbox groups
+- **Accessibility**: Semantic HTML, ARIA-ready
+
+## 🔧 Configuration
+
+### Changing the AI Model
+
+Edit `chat/gemini_service.py`:
+```python
+response = self.client.models.generate_content(
+    model='gemini-2.5-flash-lite',  # Change model here
+    contents=prompt
+)
+```
+
+Available models:
+- `gemini-2.5-flash-lite` - Ultra fast, cost-efficient
+- `gemini-2.5-flash` - Balanced performance
+- `gemini-2.5-pro` - Advanced reasoning
+
+## 📝 Project Structure
+
+```
+ai-chatbot-for-/
+├── chat/                   # Main Django app
+│   ├── models.py          # Database models
+│   ├── serializers.py     # REST serializers
+│   ├── views.py           # API views
+│   ├── gemini_service.py  # AI integration
+│   └── urls.py            # App URLs
+├── config/                # Django settings
+│   ├── settings.py
+│   └── urls.py
+├── static/                # Static files
+│   ├── css/
+│   │   └── mobile-first.css
+│   └── js/
+│       └── app.js
+├── templates/             # HTML templates
+│   └── index.html
+├── manage.py
+└── requirements.txt
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-MIT License - Feel free to use and modify!
+This project is open source and available under the MIT License.
+
+## 👨‍💻 Author
+
+**Adnan Shaikh**
+- GitHub: [@Adnanshaikh40605](https://github.com/Adnanshaikh40605)
+
+## 🙏 Acknowledgments
+
+- Google Gemini AI for the powerful language model
+- Django & DRF communities for excellent documentation
+- Inter font by Rasmus Andersson
+
+## 📞 Support
+
+For issues and questions, please open an issue on GitHub.
 
 ---
 
-**Enjoy chatting with your personalized AI companion! 🎉**
+Made with ❤️ using Django and Gemini AI
