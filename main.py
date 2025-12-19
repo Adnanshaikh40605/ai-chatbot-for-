@@ -23,8 +23,14 @@ app.add_middleware(
 # Initialize database
 init_db()
 
-# Initialize AI service
-ai_service = GeminiAI()
+# AI service will be initialized lazily
+_ai_service = None
+
+def get_ai_service():
+    global _ai_service
+    if _ai_service is None:
+        _ai_service = GeminiAI()
+    return _ai_service
 
 # Mount static files
 if os.path.exists("static"):
@@ -92,7 +98,8 @@ async def get_persona(user_id: int, db: Session = Depends(get_db)):
 async def chat(chat_request: ChatRequest, db: Session = Depends(get_db)):
     """Send a chat message and get AI response"""
     try:
-        reply = ai_service.chat(db, chat_request.user_id, chat_request.message)
+        service = get_ai_service()
+        reply = service.chat(db, chat_request.user_id, chat_request.message)
         return ChatResponse(reply=reply)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
