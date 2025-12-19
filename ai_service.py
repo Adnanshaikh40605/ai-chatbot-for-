@@ -9,8 +9,8 @@ load_dotenv()
 class GeminiAI:
     def __init__(self):
         api_key = os.getenv("GEMINI_API_KEY")
-        if not api_key or api_key == "your_api_key_here":
-            raise ValueError("Please set GEMINI_API_KEY in .env file")
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY environment variable is not set. Please provide it in your environment configuration.")
         
         # Set API key as environment variable for the SDK
         os.environ["GOOGLE_API_KEY"] = api_key
