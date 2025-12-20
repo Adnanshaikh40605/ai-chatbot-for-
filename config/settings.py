@@ -152,6 +152,12 @@ REST_FRAMEWORK = {
 CORS_ALLOW_ALL_ORIGINS = True  # For development only
 CORS_ALLOW_CREDENTIALS = True
 
+# CSRF Configuration for Railway
+CSRF_TRUSTED_ORIGINS = [
+    'https://ai-chatbot-for-production.up.railway.app',
+    'https://*.railway.app',
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
