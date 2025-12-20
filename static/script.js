@@ -20,7 +20,7 @@ async function initApp() {
     // Check if user data exists in localStorage
     const savedUserId = localStorage.getItem('userId');
     const savedPersona = localStorage.getItem('persona');
-    
+
     if (savedUserId && savedPersona) {
         currentUserId = parseInt(savedUserId);
         currentPersona = JSON.parse(savedPersona);
@@ -51,7 +51,7 @@ async function createNewUser() {
 // Persona Form Submission
 personaForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const personaData = {
         user_id: currentUserId,
         name: document.getElementById('name').value,
@@ -61,14 +61,14 @@ personaForm.addEventListener('submit', async (e) => {
         likes: document.getElementById('likes').value || null,
         dislikes: document.getElementById('dislikes').value || null
     };
-    
+
     try {
         const response = await fetch(`${API_BASE_URL}/api/persona`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(personaData)
         });
-        
+
         if (response.ok) {
             currentPersona = await response.json();
             localStorage.setItem('persona', JSON.stringify(currentPersona));
@@ -86,11 +86,11 @@ personaForm.addEventListener('submit', async (e) => {
 function showChatScreen() {
     setupScreen.classList.remove('active');
     chatScreen.classList.add('active');
-    
+
     // Update persona info in header
     document.getElementById('personaName').textContent = currentPersona.name;
     document.getElementById('personaAvatar').textContent = currentPersona.name.charAt(0).toUpperCase();
-    
+
     // Clear welcome message
     const welcomeMsg = messagesContainer.querySelector('.welcome-message');
     if (welcomeMsg) {
@@ -101,22 +101,22 @@ function showChatScreen() {
 // Load Chat History
 async function loadChatHistory() {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/chat/history/${currentUserId}`);
+        const response = await fetch(`${API_BASE_URL}/api/messages/${currentUserId}/`);
         const messages = await response.json();
-        
+
         // Clear existing messages
         messagesContainer.innerHTML = '';
-        
+
         if (messages.length === 0) {
             messagesContainer.innerHTML = '<div class="welcome-message"><p>Start chatting! 💬</p></div>';
             return;
         }
-        
+
         // Display messages
         messages.forEach(msg => {
             addMessageToUI(msg.sender, msg.message, false);
         });
-        
+
         scrollToBottom();
     } catch (error) {
         console.error('Error loading chat history:', error);
@@ -126,23 +126,23 @@ async function loadChatHistory() {
 // Chat Form Submission
 chatForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const message = messageInput.value.trim();
     if (!message) return;
-    
+
     // Clear input
     messageInput.value = '';
-    
+
     // Add user message to UI
     addMessageToUI('user', message);
-    
+
     // Show typing indicator
     typingIndicator.style.display = 'flex';
     scrollToBottom();
-    
+
     // Send message to API
     try {
-        const response = await fetch(`${API_BASE_URL}/api/chat`, {
+        const response = await fetch(`${API_BASE_URL}/api/chat/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -150,12 +150,12 @@ chatForm.addEventListener('submit', async (e) => {
                 message: message
             })
         });
-        
+
         const data = await response.json();
-        
+
         // Hide typing indicator
         typingIndicator.style.display = 'none';
-        
+
         // Add AI response to UI
         addMessageToUI('ai', data.reply);
     } catch (error) {
@@ -172,21 +172,21 @@ function addMessageToUI(sender, text, animate = true) {
     if (welcomeMsg) {
         welcomeMsg.remove();
     }
-    
+
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${sender}`;
-    
+
     const avatarDiv = document.createElement('div');
     avatarDiv.className = 'message-avatar';
     avatarDiv.textContent = sender === 'user' ? 'You' : currentPersona.name.charAt(0).toUpperCase();
-    
+
     const contentDiv = document.createElement('div');
     contentDiv.className = 'message-content';
     contentDiv.textContent = text;
-    
+
     messageDiv.appendChild(avatarDiv);
     messageDiv.appendChild(contentDiv);
-    
+
     messagesContainer.appendChild(messageDiv);
     scrollToBottom();
 }

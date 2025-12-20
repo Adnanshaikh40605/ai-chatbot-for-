@@ -9,5 +9,6 @@ router.register(r'chat', views.ChatViewSet, basename='chat')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('user/', views.UserViewSet.as_view({'post': 'create'}), name='user-create'),
     path('messages/<int:user_id>/', views.MessageViewSet.as_view({'get': 'list'}), name='message-history'),
 ]
