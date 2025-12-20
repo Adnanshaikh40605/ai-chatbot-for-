@@ -69,7 +69,7 @@ personaForm.addEventListener('submit', async (e) => {
     };
 
     try {
-        const response = await fetch(`${API_BASE_URL}/api/persona`, {
+        const response = await fetch(`${API_BASE_URL}/api/personas/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(personaData)
