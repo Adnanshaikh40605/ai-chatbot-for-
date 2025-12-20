@@ -35,16 +35,22 @@ async function initApp() {
 // Create New User
 async function createNewUser() {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/user`, {
+        const response = await fetch(`${API_BASE_URL}/api/user/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }
         });
+
+        if (!response.ok) {
+            throw new Error('Failed to create user');
+        }
+
         const data = await response.json();
         currentUserId = data.id;
         localStorage.setItem('userId', currentUserId);
+        console.log('User created with ID:', currentUserId);
     } catch (error) {
         console.error('Error creating user:', error);
-        alert('Failed to create user. Please check if the server is running.');
+        alert('Failed to create user. Please refresh the page and try again.');
     }
 }
 
